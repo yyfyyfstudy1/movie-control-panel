@@ -7,6 +7,9 @@ app.use(cors())
 //这个中间件只能解析x-www-form的表单数据
 app.use(express.urlencoded({extended:false}))
 
+//托管静态资源
+app.use('/uploads', express.static('./uploads'))
+
 //在路由前封装res.cc函数
 app.use((req, res, next)=>{
     res.cc = function(err, status=1){
@@ -34,6 +37,14 @@ app.use('/api', userRouter)
 const userinfoRouter = require('./router/userinfo')
 app.use('/my', userinfoRouter)
 
+//导入获取电影分类的路由模块
+const movieInfo = require('./router/movieinfo')
+app.use('/my', movieInfo)
+
+
+//导入发布文章路由模块
+const articleRouter = require('./router/article')
+app.use('/my/article', articleRouter)
 
 
 //定义错误级别中间件
