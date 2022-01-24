@@ -2,7 +2,7 @@ const db = require('../db/index')
 
 //暴露相应的处理函数模块
 exports.movieinfo = (req, res)=>{
-    const sql = `select name, alias from 
+    const sql = `select id, name, alias from 
     ev_article_cate where is_delete= 0`
     // console.log(req.user)
     db.query(sql, (err,result)=>{

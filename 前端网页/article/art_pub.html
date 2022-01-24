@@ -26,8 +26,8 @@
           <div class="layui-form-item">
             <label class="layui-form-label">文章类别</label>
             <div class="layui-input-block">
-              <!-- <select name="cate_id" ></select> -->
-              <input type="text" name="cate_id" required lay-verify="required" placeholder="请输入类别" autocomplete="off" class="layui-input" />
+              <select name="cate_id" required lay-verify="required"></select>
+              <!-- <input type="text" name="cate_id" required lay-verify="required" placeholder="请输入类别" autocomplete="off" class="layui-input" /> -->
             </div>
           </div>
           <!-- 第三行 -->
@@ -76,7 +76,7 @@
     <script type="text/html" id="tpl-cate">
       <option value="">请选择文章类别</option>
       {{each data}}
-      <option value="{{$value.Id}}">{{$value.name}}</option>
+      <option value="{{$value.id}}">{{$value.name}}</option>
       {{/each}}
     </script>
 
