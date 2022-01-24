@@ -3,7 +3,7 @@ const { decodeBase64 } = require('bcryptjs')
 const db = require('../db/index')
 const path = require('path')
 exports.addArticle =(req,res)=>{
-if(!req.file || req.file.fieldname!=='cover_img') return res.cc('文章封面是必选参数!')
+if(!req.file || req.file.fieldname!=='cover_img') return res.cc('文章封面是必选的!')
 
  //后续业务逻辑处理
  const articleInfo ={

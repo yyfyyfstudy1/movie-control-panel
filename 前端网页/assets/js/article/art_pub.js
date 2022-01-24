@@ -72,6 +72,7 @@ $(function() {
     e.preventDefault()
     // 2. 基于 form 表单，快速创建一个 FormData 对象
     var fd = new FormData($(this)[0])
+
     // 3. 将文章的发布状态，存到 fd 中
     fd.append('state', art_state)
     // 4. 将封面裁剪过后的图片，输出为一个文件对象
@@ -86,6 +87,10 @@ $(function() {
         // 得到文件对象后，进行后续的操作
         // 5. 将文件对象，存储到 fd 中
         fd.append('cover_img', blob)
+
+        fd.forEach(function(v, k){
+          console.log(k,v)
+        })
         // 6. 发起 ajax 数据请求
         publishArticle(fd)
       })
@@ -107,7 +112,7 @@ $(function() {
         }
         layer.msg('发布文章成功！')
         // 发布文章成功后，跳转到文章列表页面
-        location.href = '/article/art_list.html'
+        // location.href = './article/art_list.html'
       }
     })
   }
