@@ -33,18 +33,3 @@ exports.updateUserInfo=(req, res)=>{
 }
 
 
-//测试模块
-exports.getUserInfoTest = (req, res)=>{
-    const sql = `select id, username, nickname, email, user_pic from 
-    user_ev where id=? or id=2`
-    // console.log(req.user)
-    db.query(sql, req.user.id, (err,result)=>{
-        if(err) return res.cc(err)
-
-        res.send({
-            status:0,
-            messqge:'获取信息成功',
-            data:result
-        })
-    })
-}

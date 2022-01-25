@@ -2,6 +2,7 @@
 const { decodeBase64 } = require('bcryptjs')
 const db = require('../db/index')
 const path = require('path')
+const { isExpression } = require('joi')
 exports.addArticle =(req,res)=>{
 if(!req.file || req.file.fieldname!=='cover_img') return res.cc('文章封面是必选的!')
 
@@ -25,3 +26,15 @@ if(!req.file || req.file.fieldname!=='cover_img') return res.cc('文章封面是
      res.cc('发布文章成功', 0)
  })
 } 
+
+
+exports.takeArticleList=(req, res)=>{
+    const sql = `select * from ev_articles, ev_article_cate where ev_articles.cate_id = ev_article_cate.id`
+    db.query(sql, (err, result)=>{
+        if(err) return res.cc(err)
+        res.send({
+            status:0,
+            data:result
+        }) 
+    })
+}

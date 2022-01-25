@@ -17,4 +17,6 @@ const {add_article_schema} = require('../schema/article')
 
 router.post('/add',uploads.single('cover_img'),expressJoi(add_article_schema), article_handler.addArticle)
 
+router.get('/list', article_handler.takeArticleList)
+
 module.exports = router
