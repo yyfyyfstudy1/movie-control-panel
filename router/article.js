@@ -7,8 +7,21 @@ const article_handler = require('../router_handle/article')
 const multer = require('multer')
 const path = require('path')
 
-//创建multer实例
-const uploads = multer({dest: path.join(__dirname, '../uploads')})
+//创建multer实例,自定义图片储存的后缀名
+let uploads = multer({
+    storage: multer.diskStorage({
+      destination: function (req, file, cb) {
+        // cb(null, './public/uploads');      //本地
+        cb(null, './uploads');  //服务器
+      },
+      filename: function (req, file, cb) {
+        var changedName = new Date().toISOString().replace(/:/g, '-') +'-'+ file.originalname+'.png';
+        cb(null, changedName);
+      }
+    })
+  })
+
+//const uploads = multer({dest: path.join(__dirname, '../uploads')})
 
 //导入验证数据的中间件
 const expressJoi = require('@escook/express-joi')
