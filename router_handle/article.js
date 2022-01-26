@@ -29,12 +29,40 @@ if(!req.file || req.file.fieldname!=='cover_img') return res.cc('文章封面是
 
 
 exports.takeArticleList=(req, res)=>{
-    const sql = `select * from ev_articles, ev_article_cate where ev_articles.cate_id = ev_article_cate.id`
-    db.query(sql, (err, result)=>{
+    var param = req.body;
+    // console.log(param)
+    var start = (param.pagenum - 1) * 3;
+    var pageSize = param.pagesize
+    const sql = `select * from ev_articles, ev_article_cate  where ev_articles.cate_id = ev_article_cate.id limit ` +start+ `, `+pageSize;
+    
+    const sql2 = `SELECT COUNT(*) FROM ev_articles`
+
+    db.query(sql2, (err, result)=>{
         if(err) return res.cc(err)
-        res.send({
-            status:0,
-            data:result
-        }) 
+        //计算电影总条数
+        var resultNum = result[0]['COUNT(*)']
+
+        //计算总页数
+        var allPage = parseInt(resultNum )/pageSize;
+        var pageStr = allPage.toString();
+        // 不能被整除
+        if (pageStr.indexOf('.')>0) {
+            allPage = parseInt(pageStr.split('.')[0]+1); 
+        }
+        console.log(allPage)
+        db.query(sql, (err, result)=>{
+            if(err) return res.cc(err)
+            res.send({
+                status:0,
+                data:result,
+                total:resultNum,
+                pagesize:allPage
+               
+            }) 
+        })
+    
     })
+
+  
+   
 }

@@ -38,7 +38,7 @@ $(function() {
   // 获取文章列表数据的方法
   function initTable() {
     $.ajax({
-      method: 'GET',
+      method: 'POST',
       url: '/my/article/list',
       data: q,
       success: function(res) {
