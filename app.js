@@ -8,7 +8,7 @@ app.use(cors())
 app.use(express.urlencoded({extended:false}))
 
 //托管静态资源
-app.use('/uploads', express.static('./uploads'))
+app.use('/api/uploads', express.static('./uploads'))
 
 //在路由前封装res.cc函数
 app.use((req, res, next)=>{
