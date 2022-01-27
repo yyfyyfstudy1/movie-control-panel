@@ -35,14 +35,38 @@ exports.addArticle =(req,res)=>{
 exports.takeArticleList=(req, res)=>{
     var param = req.body;
     // console.log(param)
+    // console.log(param.cate_id+param.state)
     var pageSize = param.pagesize
     var start = (param.pagenum - 1) * pageSize;
-   
-    const sql = `select * from ev_articles, ev_article_cate  where ev_articles.cate_id = ev_article_cate.id limit ` +start+ `, `+pageSize;
-    
+
+    // console.log('---------------------------')
+    // console.log(param)
+    // console.log(param.cate_id)
+    // console.log(param.state)
+    // console.log('---------------------------')
+    const sql = `select * from ev_articles, ev_article_cate  
+    where ev_articles.cate_id = ev_article_cate.id` +  takeSql()+ ` limit ` +start+ `, `+pageSize;
+
+    //定义筛选数据的函数
+    function takeSql(){
+        if(param.cate_id.length!==0 && param.state.length !==0){
+            return  ` and ev_article_cate.id = ? and ev_articles.state = ?`
+         }
+         if(param.state.length !==0){
+           return ` and ev_articles.state = ?`
+         }
+         if(param.cate_id.length!==0){
+            return ` and ev_article_cate.id = ?`
+          }
+         return ''
+    }
+
     const sql2 = `SELECT COUNT(*) FROM ev_articles`
 
-    db.query(sql2, (err, result)=>{
+    //判断拿到的分类以及电影状态信息是否为空
+
+
+    db.query(sql2,(err, result)=>{
         if(err) return res.cc(err)
         //计算电影总条数
         var resultNum = result[0]['COUNT(*)']
@@ -55,7 +79,7 @@ exports.takeArticleList=(req, res)=>{
             allPage = parseInt(pageStr.split('.')[0]+1); 
         }
        
-        db.query(sql, (err, result)=>{
+        db.query(sql,[param.cate_id, param.state], (err, result)=>{
             if(err) return res.cc(err)
             res.send({
                 status:0,
