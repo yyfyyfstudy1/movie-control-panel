@@ -35,7 +35,7 @@ $(function() {
 
   initTable()
   initCate()
-
+  
   // 获取文章列表数据的方法
   function initTable() {
     $.ajax({
@@ -61,6 +61,7 @@ $(function() {
       method: 'GET',
       url: '/my/article/cates',
       success: function(res) {
+        console.log(res)
         if (res.status !== 0) {
           return layer.msg('获取分类数据失败！')
         }

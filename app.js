@@ -42,9 +42,13 @@ const movieInfo = require('./router/movieinfo')
 app.use('/my', movieInfo)
 
 
-//导入发布文章路由模块
+//导入发布文章，获取文章列表路由模块
 const articleRouter = require('./router/article')
 app.use('/my/article', articleRouter)
+
+//导入电影列表api接口，不需要权限访问
+const movieListRouter = require('./api-router/movie_list')
+app.use('/api', movieListRouter)
 
 
 //定义错误级别中间件

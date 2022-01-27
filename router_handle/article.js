@@ -34,7 +34,7 @@ exports.addArticle =(req,res)=>{
 
 exports.takeArticleList=(req, res)=>{
     var param = req.body;
-    // console.log(param)
+    console.log(param)
     // console.log(param.cate_id+param.state)
     var pageSize = param.pagesize
     var start = (param.pagenum - 1) * pageSize;
