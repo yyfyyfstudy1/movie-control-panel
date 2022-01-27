@@ -5,7 +5,8 @@ const { isExpression } = require('joi')
 const fs = require("fs");
 
 exports.takeArticleList =(req,res)=>{
-let param = req.body
+let param = req.query
+console.log(param)
 //判断调用接口时候是否携带必选参数
 if(!param.cate_name) return res.cc('电影分类是必选参数！')
 

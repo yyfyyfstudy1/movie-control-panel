@@ -5,16 +5,17 @@ const path = require('path')
 const { isExpression } = require('joi')
 const fs = require("fs");
 exports.addArticle =(req,res)=>{
-    console.log(req.file)
+   
     if(!req.file || req.file.fieldname!=='cover_img') return res.cc('文章封面是必选的!')
-    
-
+    let filePath = req.file.path;
+    let pathResult = filePath.split('\\').join('/');
+    console.log(pathResult)
     //后续业务逻辑处理
     const articleInfo ={
         //标题，内容，发布状态，所属分类的id
         ...req.body,
         //文章封面的存放路径
-        cover_img: path.join('/uploads', req.file.filename),
+        cover_img:  pathResult,
         //文章发布的时间
         pub_date: new Date(),
 
