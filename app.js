@@ -38,8 +38,8 @@ const userinfoRouter = require('./router/userinfo')
 app.use('/my', userinfoRouter)
 
 //导入获取电影分类的路由模块
-const movieInfo = require('./router/movieinfo')
-app.use('/my', movieInfo)
+const movieCateInfo = require('./router/moviecateinfo')
+app.use('/my', movieCateInfo)
 
 
 //导入发布文章，获取文章列表路由模块
