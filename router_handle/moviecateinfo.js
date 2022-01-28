@@ -31,7 +31,7 @@ exports.addMovieCate=(req, res)=>{
         }
         db.query(sql2, [params.name, params.alias], (err, result)=>{
             if(err) return res.cc(err)
-            return res.cc(0,'创建电影分类成功')
+            return res.cc('创建电影分类成功',0)
         })
     })
 
