@@ -40,9 +40,8 @@ exports.addMovieCate=(req, res)=>{
 
 //暴露删除电影分类的函数处理模块
 exports.delectMovieCate=(req,res)=>{
-    
     const sql = `update ev_article_cate set is_delete = 1 where id = ?`
-    db.query(sql, req.params.id, (err, result)=>{
+    db.query(sql, req.query.id, (err, result)=>{
         if(err) return res.cc(err)
         if(result.affectedRows !== 1) return res.cc('数据库异常')
         return res.cc('删除电影分类成功',0)
