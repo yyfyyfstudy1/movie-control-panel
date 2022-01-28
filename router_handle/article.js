@@ -9,7 +9,6 @@ exports.addArticle =(req,res)=>{
     if(!req.file || req.file.fieldname!=='cover_img') return res.cc('文章封面是必选的!')
     let filePath = req.file.path;
     let pathResult = filePath.split('\\').join('/');
-    console.log(pathResult)
     //后续业务逻辑处理
     const articleInfo ={
         //标题，内容，发布状态，所属分类的id
@@ -35,7 +34,6 @@ exports.addArticle =(req,res)=>{
 
 exports.takeArticleList=(req, res)=>{
     var param = req.body;
-    console.log(param)
     // console.log(param.cate_id+param.state)
     var pageSize = param.pagesize
     var start = (param.pagenum - 1) * pageSize;
