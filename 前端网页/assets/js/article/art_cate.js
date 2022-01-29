@@ -61,8 +61,9 @@ $(function() {
     // 发起请求获取对应分类的数据
     $.ajax({
       method: 'GET',
-      url: '/my/article/cates/' + id,
+      url: '/my/article/cates?id=1',
       success: function(res) {
+        console.log(res)
         form.val('form-edit', res.data)
       }
     })

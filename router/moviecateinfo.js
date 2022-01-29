@@ -19,4 +19,7 @@ router.post('/article/addcates',expressJoi(add_cate_schema),movie_handler.addMov
 //删除电影分类
 router.get('/article/deletecate', movie_handler.delectMovieCate)
 
+//更新电影分类
+router.post('/article/updatecate', movie_handler.updateMovieCate)
+
 module.exports = router

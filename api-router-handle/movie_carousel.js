@@ -5,6 +5,7 @@ const { isExpression } = require('joi')
 const fs = require("fs");
 
 exports.takeArticleList =(req,res)=>{
+//请求的数据存储在query里面，而不是params里面
 let param = req.query
 //判断调用接口时候是否携带必选参数
 if(!param.cate_name) return res.cc('电影分类是必选参数！')
