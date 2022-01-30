@@ -58,7 +58,7 @@ exports.delectMovieCate=(req,res)=>{
 
 //暴露更新电影分类的函数处理模块
 exports.updateMovieCate=(req,res)=>{
-    console.log(req.body)
+
     const sql = `update ev_article_cate set name = ? , alias = ? where id = ?`
     db.query(sql, [req.body.name, req.body.alias, req.body.id], (err, result)=>{
         if(err) return res.cc(err)
