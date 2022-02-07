@@ -7,8 +7,13 @@ app.use(cors())
 //这个中间件只能解析x-www-form的表单数据
 app.use(express.urlencoded({extended:false}))
 
+
+// //托管静态视频资源
+app.use('/api/video', express.static('./video'))
+
 //托管静态资源
-app.use('/my/uploads', express.static('./uploads'))
+app.use('/api/uploads', express.static('./uploads'))
+
 
 //在路由前封装res.cc函数
 app.use((req, res, next)=>{

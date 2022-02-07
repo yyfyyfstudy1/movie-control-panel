@@ -21,6 +21,8 @@ let uploads = multer({
     })
   })
 
+  
+
 //const uploads = multer({dest: path.join(__dirname, '../uploads')})
 
 //导入验证数据的中间件

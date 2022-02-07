@@ -5,8 +5,10 @@ const path = require('path')
 const { isExpression } = require('joi')
 const fs = require("fs");
 exports.addArticle =(req,res)=>{
-   
+    console.log(req)
+    console.log('1111')
     if(!req.file || req.file.fieldname!=='cover_img') return res.cc('文章封面是必选的!')
+
     let filePath = req.file.path;
     let pathResult = filePath.split('\\').join('/');
     //后续业务逻辑处理
