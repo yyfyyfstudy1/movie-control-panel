@@ -5,8 +5,8 @@ const path = require('path')
 const { isExpression } = require('joi')
 const fs = require("fs");
 exports.addArticle =(req,res)=>{
-    console.log(req)
-    console.log('1111')
+    // console.log(req)
+    // console.log('1111')
     if(!req.file || req.file.fieldname!=='cover_img') return res.cc('文章封面是必选的!')
 
     let filePath = req.file.path;
@@ -46,18 +46,18 @@ exports.takeArticleList=(req, res)=>{
     // console.log(param.state)
     // console.log('---------------------------')
     const sql = `select * from ev_articles, ev_article_cate  
-    where ev_articles.cate_id = ev_article_cate.id` +  takeSql()+ ` limit ` +start+ `, `+pageSize;
+    where ev_articles.cate_id = ev_article_cate.cate_id` +  takeSql()+ ` limit ` +start+ `, `+pageSize;
 
     //定义筛选数据的函数
     function takeSql(){
         if(param.cate_id.length!==0 && param.state.length !==0){
-            return  ` and ev_article_cate.id = ? and ev_articles.state = ?`
+            return  ` and ev_article_cate.cate_id = ? and ev_articles.state = ?`
          }
          if(param.state.length !==0){
            return ` and ev_articles.state = ?`
          }
          if(param.cate_id.length!==0){
-            return ` and ev_article_cate.id = ?`
+            return ` and ev_article_cate.cate_id = ?`
           }
          return ''
     }
@@ -95,4 +95,15 @@ exports.takeArticleList=(req, res)=>{
 
   
    
+}
+
+
+exports.delectArticle=(req, res)=>{
+    // console.log(req.query.id)
+
+    const sql = `delete from ev_articles where id = ?`
+    db.query(sql, req.query.id, (err, result)=>{
+        if(err) return res.cc(err)
+        res.cc('删除成功',0)
+    })
 }

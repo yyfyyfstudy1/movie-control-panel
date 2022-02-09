@@ -124,14 +124,14 @@ $(function() {
   $('tbody').on('click', '.btn-delete', function() {
     // 获取删除按钮的个数
     var len = $('.btn-delete').length
-    console.log(len)
     // 获取到文章的 id
     var id = $(this).attr('data-id')
+    console.log(id)
     // 询问用户是否要删除数据
     layer.confirm('确认删除?', { icon: 3, title: '提示' }, function(index) {
       $.ajax({
         method: 'GET',
-        url: '/my/article/delete/' + id,
+        url: '/my/article/delete?id=' + id,
         success: function(res) {
           if (res.status !== 0) {
             return layer.msg('删除文章失败！')
@@ -153,4 +153,28 @@ $(function() {
       layer.close(index)
     })
   })
+
+
+  //  // 通过代理的形式，为 btn-edit 按钮绑定点击事件
+  //  var indexEdit = null
+  //  $('tbody').on('click', '.layui-btn-xs', function() {
+  //    // 弹出一个修改文章分类信息的层
+  //    indexEdit = layer.open({
+  //      type: 1,
+  //      area: ['500px', '250px'],
+  //      title: '修改文章',
+  //      content: $('#dialog-edit').html()
+  //    })
+ 
+  //    var id = $(this).attr('data-id')
+  //    console.log(id)
+  //    // 发起请求获取对应分类的数据
+  //   //  $.ajax({
+  //   //    method: 'GET',
+  //   //    url: '/my/article/cates?id='+id,
+  //   //    success: function(res) {
+  //   //      form.val('form-edit', res.data[0])
+  //   //    }
+  //   //  })
+  //  })
 })

@@ -58,6 +58,7 @@ $(function() {
     })
 
     var id = $(this).attr('data-id')
+    // console.log(id)
     // 发起请求获取对应分类的数据
     $.ajax({
       method: 'GET',
@@ -71,6 +72,7 @@ $(function() {
   // 通过代理的形式，为修改分类的表单绑定 submit 事件
   $('body').on('submit', '#form-edit', function(e) {
     e.preventDefault()
+    console.log($(this).serialize())
     $.ajax({
       method: 'POST',
       url: '/my/article/updatecate',
@@ -89,7 +91,6 @@ $(function() {
   // 通过代理的形式，为删除按钮绑定点击事件
   $('tbody').on('click', '.btn-delete', function() {
     var id = $(this).attr('data-id')
-    console.log(id)
     var url_use  = '/my/article/deletecate?id='+id
     // 提示用户是否要删除
     layer.confirm('确认删除?', { icon: 3, title: '提示' }, function(index) {
@@ -98,7 +99,7 @@ $(function() {
         url: url_use,
         success: function(res) {
           if (res.status !== 0) {
-            console.log(id)
+            // console.log(id)
             return layer.msg('删除分类失败！')
           }
           layer.msg('删除分类成功！')

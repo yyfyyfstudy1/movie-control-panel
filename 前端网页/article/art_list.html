@@ -60,6 +60,7 @@
       <tr>
         <td>{{$value.title}}</td>
         <td>{{$value.name}}</td>
+        
         <td>
           <image src = 'http://127.0.0.1:5500/{{$value.cover_img}}'></image>
         </td>
@@ -67,12 +68,43 @@
         </td>
         <td>{{$value.state}}</td>
         <td>
-          <button type="button" class="layui-btn layui-btn-xs">编辑</button>
-          <button type="button" class="layui-btn layui-btn-danger layui-btn-xs btn-delete" data-id="{{$value.Id}}">删除</button>
+          <button type="button" class="layui-btn layui-btn-xs" data-id="{{$value.id}}">编辑</button>
+          <button type="button" class="layui-btn layui-btn-danger layui-btn-xs btn-delete" data-id="{{$value.id}}">删除</button>
         </td>
       </tr>
       {{/each}}
     </script>
+
+      <!-- 修改电影的弹出层 -->
+      <script type="text/html" id="dialog-edit">
+        <form class="layui-form" id="form-edit" lay-filter="form-edit">
+          <!-- 隐藏域，保存 Id 的值 -->
+          <input type="hidden" name="id">
+          <div class="layui-form-item">
+            <label class="layui-form-label">文章标题</label>
+            <div class="layui-input-block">
+              <input type="text" name="title" required  lay-verify="required" placeholder="请输入文章标题" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">内容</label>
+            <div class="layui-input-block">
+              <input type="text" name="content" required  lay-verify="required" placeholder="请输入分类名" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+              <input type="text" name="status" required  lay-verify="required" placeholder="请选择状态" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button class="layui-btn" lay-submit lay-filter="formDemo">确认修改</button>
+            </div>
+          </div>
+        </form>
+      </script>
 
     <!-- 分类可选项的模板结构 -->
     <script type="text/html" id="tpl-cate">
