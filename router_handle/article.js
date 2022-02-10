@@ -117,9 +117,9 @@ exports.delectArticle=(req, res)=>{
 }
 
 exports.editMovieInfo=(req, res)=>{
-    // console.log(req.body)
-    const sql =`update ev_articles set title =?, content=?, status=? where id = ?`
-    db.query(sql, [req.body.title, req.body.contnet, req.body.id],(err, result)=>{
+    console.log(req.body)
+    const sql =`update ev_articles set title = ?, content= ?, state= ? where id = ?`
+    db.query(sql, [req.body.title, req.body.content,req.body.state, req.body.id],(err, result)=>{
         if(err) return res.cc(err)
         res.cc('更新文章成功',0)
     })

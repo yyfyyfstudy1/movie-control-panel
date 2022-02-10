@@ -171,13 +171,6 @@ $(function() {
    // 弹出一个修改文章分类信息的层.展示原有的信息
    $('tbody').on('click', '.btn-edit', function() {
      console.log('我出来了')
-    indexEdit = layer.open({
-      type: 1,
-      area: ['500px', '250px'],
-      title: '修改文章分类',
-      content: $('#dialog-edit').html()
-    })
-
     var id = $(this).attr('data-id')
     // console.log(id)
     // 发起请求获取对应电影的数据
@@ -201,7 +194,12 @@ $(function() {
       url: '/my/article/editMovie',
       data: $(this).serialize(),
       success: function(res) {
-        form.val('form-edit', res.data[0])
+        if (res.status !== 0) {
+          return layer.msg('更新电影数据失败！')
+        }
+        layer.msg('更新电影数据成功！')
+        layer.close(indexEdit)
+        initTable()
       }
     })
     })
