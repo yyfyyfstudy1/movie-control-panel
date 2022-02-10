@@ -50,6 +50,12 @@ router.post('/add',uploads.single('cover_img')  ,expressJoi(add_article_schema),
 
 router.post('/list', article_handler.takeArticleList)
 
+//修改电影信息的路由
+router.post('/editMovie', article_handler.editMovieInfo)
+
+//获取渲染电影信息的路由
+router.get('/takeMovieeditinfo', article_handler.getEditMovieInfo)
+
 router.get('/delete', article_handler.delectArticle)
 
 module.exports = router

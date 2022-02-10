@@ -155,26 +155,56 @@ $(function() {
   })
 
 
-  //  // 通过代理的形式，为 btn-edit 按钮绑定点击事件
-  //  var indexEdit = null
-  //  $('tbody').on('click', '.layui-btn-xs', function() {
-  //    // 弹出一个修改文章分类信息的层
-  //    indexEdit = layer.open({
-  //      type: 1,
-  //      area: ['500px', '250px'],
-  //      title: '修改文章',
-  //      content: $('#dialog-edit').html()
-  //    })
+   // 通过代理的形式，为 btn-edit 按钮绑定点击事件
+   var indexEdit = null
+   $('tbody').on('click', '.btn-edit', function() {
+     // 弹出一个修改文章分类信息的层
+     indexEdit = layer.open({
+       type: 1,
+       area: ['500px', '250px'],
+       title: '修改文章',
+       content: $('#dialog-edit').html()
+     })
+
+   })
+   
+   // 弹出一个修改文章分类信息的层.展示原有的信息
+   $('tbody').on('click', '.btn-edit', function() {
+     console.log('我出来了')
+    indexEdit = layer.open({
+      type: 1,
+      area: ['500px', '250px'],
+      title: '修改文章分类',
+      content: $('#dialog-edit').html()
+    })
+
+    var id = $(this).attr('data-id')
+    // console.log(id)
+    // 发起请求获取对应电影的数据
+    $.ajax({
+      method: 'GET',
+      url: '/my/article/takeMovieeditinfo?id='+id,
+      success: function(res) {
+        form.val('form-edit', res.data[0])
+      }
+    })
+  })
+
+
+
+    $('body').on('submit', '#form-edit', function(e) {
+      e.preventDefault()
+      console.log($(this).serialize())
+    // 发起请求修改对应文章的数据
+    $.ajax({
+      method: 'POST',
+      url: '/my/article/editMovie',
+      data: $(this).serialize(),
+      success: function(res) {
+        form.val('form-edit', res.data[0])
+      }
+    })
+    })
+
  
-  //    var id = $(this).attr('data-id')
-  //    console.log(id)
-  //    // 发起请求获取对应分类的数据
-  //   //  $.ajax({
-  //   //    method: 'GET',
-  //   //    url: '/my/article/cates?id='+id,
-  //   //    success: function(res) {
-  //   //      form.val('form-edit', res.data[0])
-  //   //    }
-  //   //  })
-  //  })
 })

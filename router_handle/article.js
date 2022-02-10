@@ -39,34 +39,40 @@ exports.takeArticleList=(req, res)=>{
     // console.log(param.cate_id+param.state)
     var pageSize = param.pagesize
     var start = (param.pagenum - 1) * pageSize;
-
+    var post1Use = `limit `+ start + `, `+pageSize 
     // console.log('---------------------------')
     // console.log(param)
     // console.log(param.cate_id)
     // console.log(param.state)
     // console.log('---------------------------')
     const sql = `select * from ev_articles, ev_article_cate  
-    where ev_articles.cate_id = ev_article_cate.cate_id` +  takeSql()+ ` limit ` +start+ `, `+pageSize;
+    where ev_articles.cate_id = ev_article_cate.cate_id ` +  takeSql();
 
     //定义筛选数据的函数
     function takeSql(){
-        if(param.cate_id.length!==0 && param.state.length !==0){
-            return  ` and ev_article_cate.cate_id = ? and ev_articles.state = ?`
-         }
-         if(param.state.length !==0){
-           return ` and ev_articles.state = ?`
-         }
-         if(param.cate_id.length!==0){
-            return ` and ev_article_cate.cate_id = ?`
-          }
-         return ''
+
+
+            if(param.cate_id.length!==0 && param.state.length !==0){
+                return  ` and ev_article_cate.cate_id = ? and ev_articles.state = ?`+post1Use
+             }
+             if(param.state.length !==0){
+               return ` and ev_articles.state = ?` + post1Use
+             }
+             if(param.cate_id.length!==0){
+                return ` and ev_article_cate.cate_id = ?` +post1Use
+              }
+             return post1Use
+
+        
+
+       
     }
 
     const sql2 = `SELECT COUNT(*) FROM ev_articles`
 
     //判断拿到的分类以及电影状态信息是否为空
 
-
+    // console.log(sql)
     db.query(sql2,(err, result)=>{
         if(err) return res.cc(err)
         //计算电影总条数
@@ -80,8 +86,10 @@ exports.takeArticleList=(req, res)=>{
             allPage = parseInt(pageStr.split('.')[0]+1); 
         }
        
+
         db.query(sql,[param.cate_id, param.state], (err, result)=>{
             if(err) return res.cc(err)
+           
             res.send({
                 status:0,
                 data:result,
@@ -105,5 +113,27 @@ exports.delectArticle=(req, res)=>{
     db.query(sql, req.query.id, (err, result)=>{
         if(err) return res.cc(err)
         res.cc('删除成功',0)
+    })
+}
+
+exports.editMovieInfo=(req, res)=>{
+    // console.log(req.body)
+    const sql =`update ev_articles set title =?, content=?, status=? where id = ?`
+    db.query(sql, [req.body.title, req.body.contnet, req.body.id],(err, result)=>{
+        if(err) return res.cc(err)
+        res.cc('更新文章成功',0)
+    })
+
+}
+
+exports.getEditMovieInfo=(req, res)=>{
+    const sql = `select * from ev_articles where id = ?`
+    db.query(sql, req.query.id, (err, result)=>{
+        if(err) return res.cc(err)
+        res.send({
+            status:0,
+            data:result,
+           
+        }) 
     })
 }
