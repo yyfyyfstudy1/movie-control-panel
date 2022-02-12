@@ -31,7 +31,7 @@ let uploadsMovie = multer({
       cb(null, './uploads');  //服务器
     },
     filename: function (req, file, cb) {
-      var changedName = new Date().toISOString().replace(/:/g, '-') +'-'+ file.originalname+'.mp4';
+      var changedName = new Date().toISOString().replace(/:/g, '-') +'-'+ file.originalname;
       cb(null, changedName);
     }
   })
@@ -57,5 +57,8 @@ router.post('/editMovie', article_handler.editMovieInfo)
 router.get('/takeMovieeditinfo', article_handler.getEditMovieInfo)
 
 router.get('/delete', article_handler.delectArticle)
+
+//上传视频资源的路由
+router.post('/addmovie', uploadsMovie.single('movie'),article_handler.addMovie)
 
 module.exports = router

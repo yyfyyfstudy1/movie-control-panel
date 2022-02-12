@@ -137,3 +137,19 @@ exports.getEditMovieInfo=(req, res)=>{
         }) 
     })
 }
+
+exports.addMovie=(req, res)=>{
+    if(!req.file || req.file.fieldname!=='movie') return res.cc('电影是必选的!')
+
+    let filePath = req.file.path;
+    let pathResult = filePath.split('\\').join('/');
+    const id =  req.body.id
+
+
+    const sql = `update ev_articles set movie_link = ? where id = ?`
+    db.query(sql, [pathResult, id], (err, result)=>{
+        if(err)return res.cc(err)
+        if(result.affectedRows !==1)return res.cc('上传电影失败！')
+        res.cc('上传电影成功', 0)
+    })
+}

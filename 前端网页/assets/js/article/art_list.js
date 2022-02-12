@@ -204,5 +204,52 @@ $(function() {
     })
     })
 
+
+    
+    // 通过代理的形式，为 btn-upload 按钮绑定点击事件
+   var indexEdit = null
+   $('tbody').on('click', '.btn-upload', function() {
+     // 弹出一个修改文章分类信息的层
+     indexEdit = layer.open({
+       type: 1,
+       area: ['500px', '250px'],
+       title: '上传电影资源',
+       content: $('#dialog-upload').html()
+     })
+
+   })
+
+    // 通过代理的形式，为上传电影的表单绑定 submit 事件
+  $('body').on('submit', '#form-upload', function(e) {
+    var files = e.target.files
+    // e.preventDefault()
+  
+  })
+
+
+   // 为选择电影的按钮，绑定点击事件处理函数
+   $('#btnMovieImage').on('click', function() {
+    $('#coverMovie').click()
+  })
+
+  // 监听 coverFile 的 change 事件，获取用户选择的文件列表
+  $('#coverMovie').on('change', function(e) {
+    // 获取到文件的列表数组
+    var files = e.target.files
+    // 判断用户是否选择了文件
+    if (files.length === 0) {
+      return
+    }
+    // 为裁剪区域重新设置图片
+    $movie = files[0]
+    console.log($movie)
+  })
+
+  function jump(){
+    console.log('aaaaaa')
+    windows.location.href=''
+  }
+
+
  
 })

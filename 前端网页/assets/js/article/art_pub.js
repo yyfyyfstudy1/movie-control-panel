@@ -44,6 +44,7 @@ $(function() {
   // 监听 coverFile 的 change 事件，获取用户选择的文件列表
   $('#coverFile').on('change', function(e) {
     // 获取到文件的列表数组
+    // console.log(e)
     var files = e.target.files
     // 判断用户是否选择了文件
     if (files.length === 0) {
@@ -58,22 +59,22 @@ $(function() {
       .cropper(options) // 重新初始化裁剪区域
   })
 
-    // 为选择电影的按钮，绑定点击事件处理函数
-    $('#btnMovieImage').on('click', function() {
-      $('#coverMovie').click()
-    })
+    // // 为选择电影的按钮，绑定点击事件处理函数
+    // $('#btnMovieImage').on('click', function() {
+    //   $('#coverMovie').click()
+    // })
   
-    // 监听 coverFile 的 change 事件，获取用户选择的文件列表
-    $('#coverMovie').on('change', function(e) {
-      // 获取到文件的列表数组
-      var files = e.target.files
-      // 判断用户是否选择了文件
-      if (files.length === 0) {
-        return
-      }
-      // 为裁剪区域重新设置图片
-      $movie = files[0]
-    })
+    // // 监听 coverFile 的 change 事件，获取用户选择的文件列表
+    // $('#coverMovie').on('change', function(e) {
+    //   // 获取到文件的列表数组
+    //   var files = e.target.files
+    //   // 判断用户是否选择了文件
+    //   if (files.length === 0) {
+    //     return
+    //   }
+    //   // 为裁剪区域重新设置图片
+    //   $movie = files[0]
+    // })
 
 
 
